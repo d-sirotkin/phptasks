@@ -1,10 +1,10 @@
 <?php 
-    class product {
+    class Product {
         public $name;
         public $price;
 
         //конструктор для инициализации свойсьв
-        public function __constuct($name, $price) {
+        public function __construct($name, $price) {
             $this->name = $name;
             $this->price = $price;
         }
@@ -16,19 +16,17 @@
     }
 
     //три обьекта product
-    $product1 = new product("ТОвар 1", 100);
-    $product2 = new product("ТОвар 2", 200);
-    $product3 = new product("ТОвар 3", 300);
+    $product1 = new Product("Товар 1", 100);
+    $product2 = new Product("Товар 2", 200);
+    $product3 = new Product("Товар 3", 300);
     
     //HTML таблица
     echo "<table border = '1' cellpadding = '5' cellspacing = '0'>";
-    echo "
-        <tr>
+    echo "<tr>
             <th> название </th>
             <th> цена </th>
             <th> цена со скидкой </th>
-        </tr>
-    ";
+        </tr>";
 
     //выводим данные в таблицу
     $discountPercent = 10;
@@ -40,9 +38,8 @@
                 <td>{$product->name}</td>
                 <td>{$product->price}</td>
                 <td>{$discountedPrice}</td>
-            </tr>
-            ";
+            </tr>";
     }
 
-    echo "</table">;
+    echo "</table>";
 ?>
