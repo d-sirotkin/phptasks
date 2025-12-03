@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $userData = [];
 
     if (!isset($_POST['name'])) {
-        $errors[] = "Форма не заполнена. Пожалуйста, введите имя.";
+        $errors[] = "Пожалуйста, введите имя пользователя." . ;
     }
     
     //обрезаем пробелы
@@ -33,10 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     }
     // проверка недопустимых символов
     elseif (!preg_match('/^[a-zA-Z0-9_\-\.а-яА-ЯёЁ]+$/u', $name )){
-        $errors[] = "Имя пользователя содержит недопустимые символы";
+        $errors[] = "Имя пользователя содержит недопустимые символы.";
     }
     elseif (htmlspecialchars($name)){
-        $errors[] = "Имя пользователя содержит недопустимые символы";
+        $errors[] = "Имя пользователя содержит недопустимые символы.";
     }
     else {
         //если проверки прошли успешно, добавим валидное имя в массив
@@ -65,9 +65,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     // здесь можно безопасно использовать $_POST['email']
     if (!isset($_POST['email'])) {
-        $errors[] = "Форма не заполнена. Пожалуйста, введите почту.";
-    }
-    else{
         // обрезаем пробелы
         $email = trim($_POST['email']);
         
@@ -88,8 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     if (filter_var($sanitizedEmail, FILTER_VALIDATE_EMAIL)) {
         $errors[] = "Почта валидна:" . htmlspecialchars($sanitizedEmail);
     }*/
-
-    }
+}
 
 
 
@@ -98,25 +94,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 /* password */
     if (isset($_POST['password'])) {
-        $errors[] = "Пожалуйста, введите праоль.";
-    }
-
+        
+    
     ///^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{8,}$/
     //или
-    elseif(strlen($password) < 8){
+    if(strlen($password) < 8){
         $errors[] = "Пароль должен быть больше 8 символов.";
     }
     elseif (!preg_match('/[A-Z]/', $password)){
-        $errors[] = "Добавитье хотя бы одну заглавную букву.";
+        $errors[] = "Добавьте заглавные буквы.";
     }
     elseif (!preg_match('/[a-z]/', $password)){
-        $errors[] = "Добавитье хотя бы одну строчную букву.";
+        $errors[] = "Добавьте строчные буквы.";
     }
     elseif (!preg_match('/\d/', $password)){
-        $errors[] = "Добавитье хотя бы одну цифру.";
+        $errors[] = "Добавьте хотя бы одну цифру.";
     }
     elseif (!preg_match('/[\W_]/', $password)){
-        $errors[] = "Добавитье хотя бы один специальный символ.";
+        $errors[] = "Добавьте хотя бы один специальный символ.";
     }
     // здесь можно продоложить обработку
 
@@ -126,6 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         $userData['password'] = $hashed_password;
         // сохраним $hashed_password в бд через pdo 
     }
+}
 
 
 
@@ -142,7 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     else {
         //если есть ошибки, то выводим
         foreach ($errors as $error){
-            echo htmlspecialchars($error);
+            echo htmlspecialchars($error) . '<br>';
         }
         echo "<br/><a href=\"index.php\">Вернуться назад</a>";
     }
